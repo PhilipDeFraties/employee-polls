@@ -12,6 +12,12 @@ code {
     monospace;
 }
 
+.avatar {
+  height: 100px;
+  border-radius: 50px;
+  margin: 10px;
+}
+
 .container {
   max-width: 1000px;
   margin: 0 auto;
@@ -48,4 +54,32 @@ li {
   display: flex;
   flex-direction: column;
   text-align: center;
+}
+
+.option-text {
+  width: 100px;
+  height: 100px;
+  border: 2px solid black;
+  padding: 20px;
+  text-align: center;
+}
+
+.answer-button {
+  width: 100px;
+  height: 100px;
+  border: 2px solid black;
+  margin: 0;
+  padding: 20px;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 15px;
+}
+
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
 }
