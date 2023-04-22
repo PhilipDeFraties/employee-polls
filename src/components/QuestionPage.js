@@ -11,7 +11,6 @@ const QuestionPage = (props) => {
       authedUser,
     }
     dispatch(handleSaveQuestionAnswer(questionAnswer))
-    // todo: add dispatch to add question to authedUser's questions
   }
 
   return (
