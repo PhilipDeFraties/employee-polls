@@ -1,33 +1,31 @@
 import { connect } from "react-redux";
 import { formatDate } from "../utils/helpers";
+import { useNavigate } from "react-router-dom";
 
 const Question = (props) => {
+  const { author, timestamp, id } = props.question 
+  const navigate = useNavigate();
   if (props.question === null) {
     return <p>this Question doesn't exist </p>
   }
 
-  const { author, timestamp } = props.question 
+  const handleClick = () => {
+    navigate(`/questions/${id}`)
+  }
+
   return (
     <div className="question">
       <div className="question-info">
         <span>{author}</span>
         <div>{formatDate(timestamp)}</div>
-        <button>Show</button>
+        <button onClick={handleClick}>Show</button>
       </div>
     </div>
   )
 }
 
-const mapStateToProps = ({ authedUser, users, questions}, {id}) => {
-  // todo: create formatQuestion function in utils/helpers.js???
+const mapStateToProps = ({ authedUser, questions}, {id}) => {
   const question = questions[id]
-
-  // is this passing too much data? dont need question options:
-  // const questionData = {
-  //   id: question.id,
-  //   author: question.author,
-  //   timestamp: question.timestamp
-  // }
   return { 
     authedUser,
     question: question,

@@ -1,8 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
 import Dashboard from "../components/Dashboard";
 import LoadingBar from "react-redux-loading-bar";
+import QuestionPage from "../components/QuestionPage"
+import NewQuestion from "../components/NewQuestion";
+import Nav from "../components/Nav";
+import { Routes, Route } from "react-router-dom";
 
 const App = (props) => {
   useEffect(() => {
@@ -10,10 +14,21 @@ const App = (props) => {
   }, [])
 
   return (
-    <div className="container">
+    <Fragment>
       <LoadingBar />
-      {props.loading === true ? null : <Dashboard />}
-    </div>
+      <div className="container">
+        <Nav />
+        {
+          props.loading === true ? null : (
+            <Routes>
+              <Route path="/" exact element={<Dashboard />} />
+              <Route path="/questions/:id" element={<QuestionPage />} />
+              <Route path="/new" element={<NewQuestion />} />
+            </Routes>
+          )
+        }
+      </div>
+    </Fragment>
   );
 };
 

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import { handleAddQuestion } from "../actions/questions";
-
+import { useNavigate } from "react-router-dom";
 const NewQuestion = ({dispatch}) => {
+  const navigate = useNavigate();
   const [inputs, setInputs] = useState({});
 
   const handleChange = (event) => {
@@ -21,6 +22,7 @@ const NewQuestion = ({dispatch}) => {
     dispatch(handleAddQuestion(question))
 
     setInputs({})
+    navigate("/");
   }
 
   return (
