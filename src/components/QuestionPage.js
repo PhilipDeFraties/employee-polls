@@ -1,24 +1,42 @@
 import { connect } from "react-redux";
+import { handleSaveQuestionAnswer } from "../actions/questions";
 
 const QuestionPage = (props) => {
-  const { author, users, optionOne, optionTwo } = props;
+  const { authedUser, id, author, users, optionOne, optionTwo, dispatch } = props;
+
+  const handleClick = (option) => {
+    const questionAnswer = {
+      id: id,
+      answer: option,
+      authedUser,
+    }
+    dispatch(handleSaveQuestionAnswer(questionAnswer))
+    // todo: add dispatch to add question to authedUser's questions
+  }
 
   return (
     <div>
       <h1>Poll by {author}</h1>
       <img src={users[author].avatarURL} alt={`Avatar of ${author}`} className="avatar" />
-      <div class="row">
-        <div class="column">
-          <div className="option-text">
-            {optionOne}
+      <h3 className="center">Would You Rather:</h3>
+      <div className="center">
+        <div className="row">
+          <div className="column">
+            <div className="option-text">
+              {optionOne}
+            </div>
+            <button className="btn" onClick={() => handleClick("optionOne")} disabled={false}>
+              Click
+            </button>
           </div>
-          <button className="answer-button">Click</button>
-        </div>
-        <div class="column">
-          <div className="option-text">
-            {optionTwo}
+          <div className="column">
+            <div className="option-text">
+              {optionTwo}
+            </div>
+            <button className="btn" onClick={() => handleClick("optionTwo")} disabled={false}>
+              Click
+            </button>
           </div>
-          <button className="answer-button">Click</button>
         </div>
       </div>
     </div>
@@ -30,8 +48,8 @@ const mapStateToProps = ({authedUser, questions, users}, props) => {
   const question = questions[id]
   return {
     authedUser,
-    users,
     id,
+    users,
     author: question.author,
     optionOne: question.optionOne.text,
     optionTwo: question.optionTwo.text,
