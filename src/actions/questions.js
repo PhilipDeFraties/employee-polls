@@ -3,7 +3,7 @@ import { showLoading, hideLoading } from "react-redux-loading-bar";
 
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
 export const ADD_QUESTION = "ADD_QUESTION";
-export const ADD_QUESTION_ANSWER = "ADD_ANSWER";
+export const ADD_QUESTION_ANSWER = "ADD_QUESTION_ANSWER";
 
 function addQuestion(question) {
   return {
@@ -35,14 +35,16 @@ function addQuestionAnswer(questionAnswer) {
 
 export function handleSaveQuestionAnswer(questionAnswer) {
   return (dispatch, getState) => {
-    
+    const { authedUser } = getState();
+    const questionData = {
+      ...questionAnswer,
+      authedUser,
+    }
     dispatch(showLoading());
     
-    return saveQuestionAnswer({
-      authedUser: questionAnswer.authedUser,
-      qid: questionAnswer.id,
-      answer: questionAnswer.answer,
-    }).then(() => dispatch(addQuestionAnswer(questionAnswer))).then(() => dispatch(hideLoading()))
+    return saveQuestionAnswer(
+      questionData
+    ).then(() => dispatch(addQuestionAnswer(questionData))).then(() => dispatch(hideLoading()))
   }
 }
 
