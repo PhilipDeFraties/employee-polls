@@ -3,7 +3,7 @@ import Question from "./Question";
 
 const Dashboard = (props) => {
   const { questionIds, authedUser, users } = props;
-  const answeredQuestionIds = users[authedUser].questions;
+  const answeredQuestionIds = Object.keys(users[authedUser].answers);
   const unansweredQuestionIds = questionIds.filter((id) => !answeredQuestionIds.includes(id));
 
   return <div>
