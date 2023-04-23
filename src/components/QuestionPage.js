@@ -1,4 +1,5 @@
-import { connect, batch } from "react-redux";
+import { connect } from "react-redux";
+import { useEffect } from "react";
 import { handleSaveQuestionAnswer } from "../actions/questions";
 import { handleAddUserAnswer } from '../actions/users';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -15,19 +16,33 @@ const withRouter = (Component) => {
 };
 
 const QuestionPage = (props) => {
-  const { authedUser, id, author, users, optionOne, optionTwo, dispatch } = props;
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (props.question && props.userAnswered) {
+      navigate(`/answered/${props.question.id}`)
+    }
+  }, [])
+  
   const handleClick = (option) => {
+    const { dispatch } = props
     const questionAnswer = {
       qid: id,
       answer: option,
     }
-
+    
     dispatch(handleAddUserAnswer(questionAnswer))
     dispatch(handleSaveQuestionAnswer(questionAnswer))
-    navigate("/")
+    navigate(`/answered/${id}`);
   }
+  
+  if (props.question === null) {
+    return <h1>This Question doesn't exist</h1>;
+  }
+
+  
+  const { question, users, authedUser } = props;
+  const { author, optionOne, optionTwo, id } = question;
 
   return (
     <div>
@@ -38,7 +53,7 @@ const QuestionPage = (props) => {
         <div className="row">
           <div className="column">
             <div className="option-text">
-              {optionOne}
+              {optionOne.text}
             </div>
             <button className="btn" onClick={() => handleClick("optionOne")} disabled={false}>
               Click
@@ -46,7 +61,7 @@ const QuestionPage = (props) => {
           </div>
           <div className="column">
             <div className="option-text">
-              {optionTwo}
+              {optionTwo.text}
             </div>
             <button className="btn" onClick={() => handleClick("optionTwo")} disabled={false}>
               Click
@@ -56,18 +71,17 @@ const QuestionPage = (props) => {
       </div>
     </div>
   )
+
 }
 
-const mapStateToProps = ({authedUser, questions, users}, props) => {
+const mapStateToProps = ({questions, users, authedUser}, props) => {
   const {id} = props.router.params;
   const question = questions[id]
+  const userAnswered = Object.keys(users[authedUser].answers).includes(id)
   return {
-    authedUser,
-    id,
     users,
-    author: question.author,
-    optionOne: question.optionOne.text,
-    optionTwo: question.optionTwo.text,
+    userAnswered,
+    question: question ? question : null,
   }
 }
 export default withRouter(connect(mapStateToProps)(QuestionPage));
