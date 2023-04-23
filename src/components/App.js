@@ -7,6 +7,7 @@ import QuestionPage from "../components/QuestionPage"
 import NewQuestion from "../components/NewQuestion";
 import Nav from "../components/Nav";
 import { Routes, Route } from "react-router-dom";
+import AnsweredQuestion from "./AnsweredQuestion";
 
 const App = (props) => {
   useEffect(() => {
@@ -22,8 +23,9 @@ const App = (props) => {
           props.loading === true ? null : (
             <Routes>
               <Route path="/" exact element={<Dashboard />} />
-              <Route path="/questions/:id" element={<QuestionPage />} />
+              <Route path="/question/:id" element={<QuestionPage />} />
               <Route path="/new" element={<NewQuestion />} />
+              <Route path="/answered/:id" element={<AnsweredQuestion />} /> 
             </Routes>
           )
         }
