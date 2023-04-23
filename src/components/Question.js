@@ -18,7 +18,7 @@ const Question = (props) => {
       <div className="question-info">
         <span>{author}</span>
         <div>{formatDate(timestamp)}</div>
-        <button onClick={handleClick}>Show</button>
+        <button className="btn" onClick={handleClick}>Show</button>
       </div>
     </div>
   )
