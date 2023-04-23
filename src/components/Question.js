@@ -10,7 +10,7 @@ const Question = (props) => {
   }
 
   const handleClick = () => {
-    navigate(`/questions/${id}`)
+    navigate(`/question/${id}`)
   }
 
   return (
