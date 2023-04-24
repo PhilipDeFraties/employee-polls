@@ -1,8 +1,22 @@
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { setAuthedUser } from "../actions/authedUser";
 
 const Nav = (props) => {
-  const { avatarURL, id } = props;
+  if (props.user === null) {
+    return (
+      <div class="topnav">
+        <h3 className="center">Please Log In</h3>
+      </div>
+    )
+  }
+
+  const { user } = props;
+
+  const handleClick = () => {
+    props.dispatch(setAuthedUser(null));
+  }
+
   return (
     <div class="topnav">
       <a>
@@ -11,24 +25,27 @@ const Nav = (props) => {
       <a>
         <Link to="/new">New Question</Link>
       </a>
+      <a>
+        <Link to="/leaderboard">Leaderboard</Link>
+      </a>
       <div class="topnav-right">
         <b>
-          <img src={avatarURL} alt={`Avatar of ${id}`} className="avatar" />
+          <img src={user.avatarURL} alt={`Avatar of ${user.id}`} className="avatar" />
         </b>
-        <a>
-          <Link to="/logout">Logout</Link>
-        </a>
+        <b>{user.id}</b>
+        <b>
+          <span onClick={handleClick}>Logout</span>
+        </b>
       </div>
     </div>
   )
 }
 
 const mapStateToProps = ({ authedUser, users }) => {
-  const { avatarURL, id } = users[authedUser]
+  const user = users[authedUser]
 
   return {
-    avatarURL,
-    id,
+    user: user ? user : null
   }
 }
 export default connect(mapStateToProps)(Nav);
