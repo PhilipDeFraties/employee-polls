@@ -98,6 +98,16 @@ li {
   font-size: 17px;
 }
 
+.topnav b:hover {
+  background-color: rgb(196, 249, 243);
+  color: black;
+}
+
+.topnav b.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
 .topnav a:hover {
   background-color: rgb(196, 249, 243);
   color: black;
@@ -214,4 +224,15 @@ th {
 
 label {
   margin-right: 8px;
+}
+
+.dashboard-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.dashboard-item {
+  flex-basis: 30%;
 }
