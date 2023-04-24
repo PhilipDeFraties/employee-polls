@@ -1,42 +1,56 @@
 import { connect } from "react-redux";
-import Question from "./Question"; 
+import Question from "./Question";
+import { useState } from "react"; 
 
-const Dashboard = (props) => {
-  const { questionIds, authedUser, users } = props;
-  const answeredQuestionIds = Object.keys(users[authedUser].answers);
-  const unansweredQuestionIds = questionIds.filter((id) => !answeredQuestionIds.includes(id));
+const Dashboard = ({questions, users, authedUser}) => {
+  const answeredQuestionIds = Object.keys(users[authedUser].answers).sort(
+    (a, b) => questions[b].timestamp - questions[a].timestamp
+  );
 
-  return <div>
-    <h3 className="center">New Questions</h3>
-    <ul className="dashboard-list">
-      {
-        unansweredQuestionIds.map((id) => (
-          <li key={id}>
-            <Question id={id} />
-          </li>
-        ))
-      }
-    </ul>
+  const unansweredQuestionIds = Object.keys(questions)
+    .filter((id) => !answeredQuestionIds.includes(id))
+    .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
 
-    <h3 className="center">Done</h3>
-    <ul className="dashboard-list">
-      {
-        answeredQuestionIds.map((id) => (
-          <li key={id}>
-            <Question id={id} />
-          </li>
-        ))
-      }
-    </ul>
-  </div>
+  const [showAnsweredQuestions, setShowAnsweredQuestions] = useState(false);
+
+  const toggleQuestions = () => {
+    setShowAnsweredQuestions(!showAnsweredQuestions);
+  };
+
+  const questionsToDisplay = showAnsweredQuestions
+    ? answeredQuestionIds
+    : unansweredQuestionIds;
+
+  const buttonText = showAnsweredQuestions
+    ? "View New Questions"
+    : "View Completed Questions";
+
+  const header = showAnsweredQuestions
+    ? "Done"
+    : "New Questions";
+
+  return(
+    <div>
+      <div>
+        <h3 className="center">{header}</h3>
+        <button className="toggle-btn" onClick={toggleQuestions}>
+          {buttonText}
+        </button>
+        <ul className="dashboard-list">
+          {questionsToDisplay.map((id) => (
+            <li key={id} className="dashboard-item">
+              <Question id={id} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  ); 
 };
 
 const mapStateToProps = ({ questions, authedUser, users }) => {
-  const questionIds = Object.keys(questions).sort((a, b) =>
-    questions[b].timestamp - questions[a].timestamp
-  )
   return {
-    questionIds,
+    questions,
     authedUser,
     users
   }
