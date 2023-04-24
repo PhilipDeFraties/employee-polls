@@ -23,19 +23,15 @@ const App = (props) => {
       <Nav />
       <LoadingBar />
       <Routes>
-        <Route path="/" element={<Layout />}>
-          {/* public routes */}
-          <Route path="login" element={<Login />} />
+        <Route path="login" element={<Login />} />
 
-          {/* protected routes */}
-          <Route element={<RequireAuth />}>
-            <Route path="/" exact element={<Dashboard />} />
-            <Route path="/question/:id" element={<QuestionPage />} />
-            <Route path="/new" element={<NewQuestion />} />
-            <Route path="/answered/:id" element={<AnsweredQuestion />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
-          </Route>
-        </Route>  
+        <Route element={<RequireAuth />}>
+          <Route path="/" exact element={<Dashboard />} />
+          <Route path="/question/:id" element={<QuestionPage />} />
+          <Route path="/new" element={<NewQuestion />} />
+          <Route path="/answered/:id" element={<AnsweredQuestion />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+        </Route>
       </Routes>
     </Fragment>
   );
