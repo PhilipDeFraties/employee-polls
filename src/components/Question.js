@@ -24,10 +24,9 @@ const Question = (props) => {
   )
 }
 
-const mapStateToProps = ({ authedUser, questions}, {id}) => {
+const mapStateToProps = ({ questions }, {id}) => {
   const question = questions[id]
   return { 
-    authedUser,
     question: question,
   }
 }
