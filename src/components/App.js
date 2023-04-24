@@ -8,7 +8,6 @@ import NewQuestion from "../components/NewQuestion";
 import Leaderboard from "../components/Leaderboard";
 import Login from "../components/Login";
 import Nav from "../components/Nav";
-import Layout from "../components/Layout";
 import RequireAuth from "../components/RequireAuth";
 import { Routes, Route } from 'react-router-dom';
 import AnsweredQuestion from "./AnsweredQuestion";
@@ -23,19 +22,15 @@ const App = (props) => {
       <Nav />
       <LoadingBar />
       <Routes>
-        <Route path="/" element={<Layout />}>
-          {/* public routes */}
-          <Route path="login" element={<Login />} />
+        <Route path="login" element={<Login />} />
 
-          {/* protected routes */}
-          <Route element={<RequireAuth />}>
-            <Route path="/" exact element={<Dashboard />} />
-            <Route path="/question/:id" element={<QuestionPage />} />
-            <Route path="/new" element={<NewQuestion />} />
-            <Route path="/answered/:id" element={<AnsweredQuestion />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
-          </Route>
-        </Route>  
+        <Route element={<RequireAuth />}>
+          <Route path="/" exact element={<Dashboard />} />
+          <Route path="/question/:id" element={<QuestionPage />} />
+          <Route path="/new" element={<NewQuestion />} />
+          <Route path="/answered/:id" element={<AnsweredQuestion />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+        </Route>
       </Routes>
     </Fragment>
   );
