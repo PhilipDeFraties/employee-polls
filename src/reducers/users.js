@@ -1,4 +1,5 @@
 import { RECEIVE_USERS, ADD_ANSWER } from "../actions/users";
+import { ADD_QUESTION } from "../actions/questions";
 
 export default function users(state = {}, action) {
   switch (action.type) {
@@ -18,7 +19,19 @@ export default function users(state = {}, action) {
             [qid]: answer,
           }
         }
-      }  
+      }
+    case ADD_QUESTION:
+      const { id, author } = action.question;
+      return {
+        ...state,
+        [author]: {
+          ...state[author],
+          questions: [
+            ...state[author].questions,
+            id,
+          ]
+        }
+      }
     default:
       return state;
   };
