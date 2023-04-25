@@ -1,5 +1,4 @@
-import { connect } from 'react-redux';
-
+import React from 'react';
 const Leaderboard = ({ users }) => {
   return (
     <div className="leaderboard">
@@ -7,16 +6,19 @@ const Leaderboard = ({ users }) => {
         <thead>
           <tr>
             <th>Users</th>
-            <th>Questions Count</th>
-            <th>Answers Count</th>
+            <th>Answered</th>
+            <th>Created</th>
           </tr>
         </thead>
         <tbody>
           {Object.values(users).map((user, index) => (
             <tr key={index}>
-              <td>{user.name}</td>
-              <td>{user.questions.length}</td>
+              <td>
+                <img src={user.avatarURL} alt={`Avatar of ${user.id}`} className="avatar" />
+                {user.name}
+              </td>
               <td>{Object.keys(user.answers).length}</td>
+              <td>{user.questions.length}</td>
             </tr>
           ))}
         </tbody>
@@ -25,9 +27,4 @@ const Leaderboard = ({ users }) => {
   );
 };
 
-const mapStateToProps = ({ users }) => {
-  return {
-    users
-  }
-}
-export default connect(mapStateToProps)(Leaderboard);
+export default Leaderboard;
