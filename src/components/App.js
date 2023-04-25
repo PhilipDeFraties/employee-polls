@@ -28,7 +28,7 @@ const App = (props) => {
         <Route element={<RequireAuth isAuthenticated={isAuthenticated} />} >
           <Route path="/" exact element={<Dashboard />} />
           <Route path="/questions/:qid" element={<QuestionPage />} />
-          <Route path="/new" element={<NewQuestion />} />
+          <Route path="/add" exact element={<NewQuestion />} />
           <Route path="/leaderboard" element={<Leaderboard users={users}/>} />
           <Route path="*" element={<NotFound />} />
         </Route>

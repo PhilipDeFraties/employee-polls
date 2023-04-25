@@ -12,7 +12,7 @@ const Nav = (props) => {
   return (
     <div className="topnav" role="navigation">
       <Link to="/">Home</Link>
-      <Link to="/new">New Question</Link>
+      <Link to="/add">New Question</Link>
       <Link to="/leaderboard">Leaderboard</Link>
       <div className="topnav-right">
         {user ? (
