@@ -236,3 +236,62 @@ label {
 .dashboard-item {
   flex-basis: 30%;
 }
+
+.question-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.options-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 45%;
+}
+
+.option-text {
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.votes {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.btn {
+  font-size: 16px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: rgba(4, 188, 22, 0.1);
+  border: 5px solid rgba(91, 231, 3, 0.5);
+  border-radius: 5px;
+  padding: 10px;
+}
