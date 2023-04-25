@@ -39,7 +39,7 @@ let users = {
     id: 'zoshikanlu',
     password: 'pass246',
     name: 'Zenobia Oshikanlu',
-    avatarURL: null,
+    avatarURL: 'https://www.science.org/do/10.1126/science.aaw5856/abs/dog_16x9_3.jpg',
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
     },
