@@ -1,25 +1,17 @@
-import { useEffect } from "react"
-import { connect } from "react-redux"; 
+import { connect } from "react-redux";
 import { setAuthedUser } from "../actions/authedUser";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Login = ({ userIds, dispatch, authedUser }) => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // intended to redirect user if already logged in
-    // will not work when manually entering /login uri
-    // because it resets the redux store
-    if (authedUser !== null) {
-      navigate(`/`)
-    }
-  }, [])
+  const location = useLocation();
 
   const handleSelect = (e) => {
-    const userId = e.target.value
-    dispatch(setAuthedUser(userId))
-    navigate(`/`)
-  }
+    const userId = e.target.value;
+    dispatch(setAuthedUser(userId));
+    const redirectTo = location.state?.from || "/";
+    navigate(redirectTo);
+  };
 
   return (
     <div className="login">
@@ -39,11 +31,11 @@ const Login = ({ userIds, dispatch, authedUser }) => {
 };
 
 const mapStateToProps = ({ users, authedUser }) => {
-  const userIds = Object.values(users).map((user) => user.id)
+  const userIds = Object.values(users).map((user) => user.id);
   return {
     userIds,
-    authedUser: authedUser ? authedUser : null
-  }
-}
+    authedUser: authedUser ? authedUser : null,
+  };
+};
 
 export default connect(mapStateToProps)(Login);
