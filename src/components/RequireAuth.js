@@ -1,23 +1,14 @@
-import { useNavigate, Outlet } from "react-router-dom";
-import { connect } from "react-redux";
-import { useEffect } from "react";
+import React from 'react';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-const RequireAuth = ({authedUser}) => {
-  const navigate = useNavigate();
+const RequireAuth = ({ isAuthenticated }) => {
+  const location = useLocation();
 
-  useEffect(() => {
-    if (!authedUser) {
-      navigate("/login");
-    }
-  }, [authedUser, navigate]);
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{ from: location }} />;
+  }
 
-  return authedUser !== null ? <Outlet /> : null;
+  return <Outlet />;
 };
 
-const mapStateToProps = ({ authedUser }) => {
-  return {
-    authedUser: authedUser ? authedUser : null
-  }
-}
-
-export default connect(mapStateToProps)(RequireAuth);
+export default RequireAuth;
