@@ -161,7 +161,9 @@ describe('Leaderboard component', () => {
 });
 
 describe('NewQuestion component', () => {
-  const store = createStore(reducer, applyMiddleware(thunk));
+  const store = createStore(reducer, {
+    authedUser: 'sarahedo',
+  }, applyMiddleware(thunk));
 
   it('should handle input changes and form submission', () => {
     render(
