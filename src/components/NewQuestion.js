@@ -1,7 +1,9 @@
+import React from 'react';
 import { useState } from "react";
 import { connect } from "react-redux";
 import { handleAddQuestion } from "../actions/questions";
 import { useNavigate } from "react-router-dom";
+
 const NewQuestion = ({dispatch}) => {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({});
@@ -29,7 +31,6 @@ const NewQuestion = ({dispatch}) => {
     <div>
       <h3 className="center">Create Your Own Poll</h3>
       <form onSubmit={handleSubmit} className="new-question">
-        {/* todo: redirect to / */}
         <h4 className="center">First Option:</h4>
           <input 
             className="textarea"
